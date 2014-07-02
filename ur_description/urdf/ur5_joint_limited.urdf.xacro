@@ -49,6 +49,8 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
   <property name="forearm_radius" value="0.040" />    <!-- manually measured -->
   <property name="wrist_radius" value="0.045" />      <!-- manually measured -->
 
+  <property name="damping" value="5.0" />
+
 <xacro:macro name="ur5_robot" params="prefix">
 
   <link name="${prefix}base_link" >
@@ -66,7 +68,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     </collision>
     <inertial>
       <mass value="${base_mass}" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
 
@@ -76,7 +78,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <origin xyz="0.0 0.0 ${shoulder_height}" rpy="0.0 0.0 0.0" />
     <axis xyz="0 0 1" />
     <limit lower="${-pi}" upper="${pi}" effort="150.0" velocity="${pi}"/>
-    <dynamics damping="0.4" friction="0.0"/>
+    <dynamics damping="${damping}" friction="0.0"/>
   </joint>
   
   <link name="${prefix}shoulder_link">
@@ -93,7 +95,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     </collision>
     <inertial>
       <mass value="${shoulder_mass}" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
       <origin xyz="${shoulder_cog}" rpy="0.0 0.0 0.0" />
     </inertial>
   </link>
@@ -104,7 +106,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <origin xyz="0.0 ${shoulder_offset} 0.0" rpy="0.0 ${pi / 2.0} 0.0" />    
     <axis xyz="0 1 0" />
     <limit lower="${-pi}" upper="${pi}" effort="150.0" velocity="${pi}"/>
-    <dynamics damping="0.4" friction="0.0"/>
+    <dynamics damping="${damping}" friction="0.0"/>
   </joint>
 
   <link name="${prefix}upper_arm_link">
@@ -122,7 +124,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     </collision>
     <inertial>
       <mass value="${upper_arm_mass}" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
       <origin xyz="${upper_arm_cog}" rpy="0.0 0.0 0.0" />
     </inertial>
   </link>
@@ -133,7 +135,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <origin xyz="0.0 ${-elbow_offset} ${upper_arm_length}" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <limit lower="${-pi}" upper="${pi}" effort="150.0" velocity="${pi}"/>
-    <dynamics damping="0.4" friction="0.0"/>
+    <dynamics damping="${damping}" friction="0.0"/>
   </joint>
 
   <link name="${prefix}forearm_link">
@@ -151,7 +153,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <inertial>
       <mass value="${forearm_mass}" />
       <origin xyz="${forearm_cog}" rpy="0.0 0.0 0.0" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
 
@@ -161,7 +163,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <origin xyz="0.0 0.0 ${forearm_length}" rpy="0.0 ${pi / 2.0} 0.0" />
     <axis xyz="0 1 0" />
     <limit lower="${-1.0 * pi}" upper="${0.25 * pi}" effort="28.0" velocity="${pi}"/>
-    <dynamics damping="0.3" friction="0.0"/>
+    <dynamics damping="${damping}" friction="0.0"/>
   </joint>
 
   <link name="${prefix}wrist_1_link">
@@ -180,7 +182,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <inertial>
       <mass value="${wrist_1_mass}" />
       <origin xyz="${wrist_1_cog}" rpy="0.0 0.0 0.0" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
 
@@ -190,7 +192,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <origin xyz="0.0 ${wrist_1_length} 0.0" rpy="0.0 0.0 0.0" />
     <axis xyz="0 0 1" />
     <limit lower="${-1.0 * pi}" upper="${1.0 * pi}" effort="28.0" velocity="${pi}"/>
-    <dynamics damping="0.3" friction="0.0"/>
+    <dynamics damping="${damping}" friction="0.0"/>
   </joint>
 
   <link name="${prefix}wrist_2_link">
@@ -209,7 +211,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <inertial>
       <mass value="${wrist_2_mass}" />
       <origin xyz="${wrist_2_cog}" rpy="0.0 0.0 0.0" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
 
@@ -219,7 +221,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <origin xyz="0.0 0.0 ${wrist_2_length}" rpy="0.0 0.0 0.0" />
     <axis xyz="0 1 0" />
     <limit lower="${-1.0 * pi}" upper="${1.0 * pi}" effort="28.0" velocity="${pi}"/>
-    <dynamics damping="0.3" friction="0.0"/>
+    <dynamics damping="${damping}" friction="0.0"/>
   </joint>
 
   <link name="${prefix}wrist_3_link">
@@ -236,7 +238,7 @@ center_of_mass = [ [0, -0.02561, 0.00193], [0.2125, 0, 0.11336], [0.11993, 0.0, 
     <inertial>
       <mass value="${wrist_3_mass}" />
       <origin xyz="${wrist_3_cog}" rpy="0.0 0.0 0.0" />
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.002"/>
     </inertial>
   </link>
   
